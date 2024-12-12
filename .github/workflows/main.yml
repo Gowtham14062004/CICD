@@ -22,8 +22,7 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           IMAGE_NAME: my-image
         run: |
-          docker buildx build \-t "$DOCKERHUB_USERNAME/$IMAGE_NAME:latest" \ . --platform linux/amd64
-          docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
+          docker buildx build --platform linux/amd64 -t "$DOCKERHUB_USERNAME/$IMAGE_NAME:latest" --push .
 
 
   test:
