@@ -20,10 +20,8 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           IMAGE_NAME: my-image
         run: |
-         docker buildx build \
-         --platform linux/amd64,linux/arm64 \
-         -t $DOCKERHUB_USERNAME/$IMAGE_NAME:latest \
-         --push .
+          docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME .
+          docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
 
   test:
     runs-on: ubuntu-latest
@@ -40,5 +38,8 @@ jobs:
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
+          pip install pytest
+          pytest test.py
+
           pip install pytest
           pytest test.py
